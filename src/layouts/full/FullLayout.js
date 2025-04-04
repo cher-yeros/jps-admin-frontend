@@ -1,13 +1,14 @@
 import { Box, Container, styled } from "@mui/material";
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
+import { useSelector } from "react-redux";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
-  minHeight: "100vh",
+  height: "100vh",
   width: "100%",
 }));
 
@@ -17,6 +18,8 @@ const PageWrapper = styled("div")(() => ({
   flexDirection: "column",
   zIndex: 1,
   backgroundColor: "transparent",
+  border: 2,
+  borderColor: "blue",
 }));
 
 const FullLayout = () => {
@@ -24,7 +27,9 @@ const FullLayout = () => {
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
-  return (
+  const { token } = useSelector((state) => state.auth);
+
+  return token ? (
     <MainWrapper className="mainwrapper">
       {/* ------------------------------------------- */}
       {/* Sidebar */}
@@ -37,7 +42,7 @@ const FullLayout = () => {
       {/* ------------------------------------------- */}
       {/* Main Wrapper */}
       {/* ------------------------------------------- */}
-      <PageWrapper className="page-wrapper">
+      <PageWrapper className="page-wrapper" sx={{ height: "100%" }}>
         {/* ------------------------------------------- */}
         {/* Header */}
         {/* ------------------------------------------- */}
@@ -50,14 +55,15 @@ const FullLayout = () => {
         {/* ------------------------------------------- */}
         <Container
           sx={{
-            paddingTop: "20px",
+            // paddingTop: "20px",
             maxWidth: "1200px",
+            height: "calc(100% - 0px)",
           }}
         >
           {/* ------------------------------------------- */}
           {/* Page Route */}
           {/* ------------------------------------------- */}
-          <Box sx={{ minHeight: "calc(100vh - 170px)" }}>
+          <Box sx={{ minHeight: "calc(100% - 0px)" }}>
             <Outlet />
           </Box>
 
@@ -82,6 +88,8 @@ const FullLayout = () => {
         </Box> */}
       </PageWrapper>
     </MainWrapper>
+  ) : (
+    <Navigate to="/auth/login" />
   );
 };
 

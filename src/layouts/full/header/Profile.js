@@ -1,21 +1,29 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   Avatar,
   Box,
-  Menu,
   Button,
   IconButton,
-  MenuItem,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
+  Typography,
 } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
 
+import { useDispatch, useSelector } from "react-redux";
 import ProfileImg from "src/assets/images/profile/user-1.jpg";
+import { logoutFinished } from "../../../redux/slices/authSlice";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { currentUser } = useSelector((state) => state?.auth);
+
   const [anchorEl2, setAnchorEl2] = useState(null);
   const handleClick2 = (event) => {
     setAnchorEl2(event.currentTarget);
@@ -26,6 +34,9 @@ const Profile = () => {
 
   return (
     <Box>
+      <Typography display={"inline"} fontWeight={"bold"}>
+        {currentUser?.first_name} {currentUser?.last_name}
+      </Typography>
       <IconButton
         size="large"
         aria-label="show 11 new notifications"
@@ -48,6 +59,7 @@ const Profile = () => {
           }}
         />
       </IconButton>
+
       {/* ------------------------------------------- */}
       {/* Message Dropdown */}
       {/* ------------------------------------------- */}
@@ -85,11 +97,16 @@ const Profile = () => {
         </MenuItem>
         <Box mt={1} py={1} px={2}>
           <Button
-            to="/auth/login"
+            // to="/auth/login"
             variant="outlined"
             color="primary"
-            component={Link}
+            // component={Link}
             fullWidth
+            onClick={() => {
+              dispatch(logoutFinished());
+
+              navigate("/auth/login");
+            }}
           >
             Logout
           </Button>

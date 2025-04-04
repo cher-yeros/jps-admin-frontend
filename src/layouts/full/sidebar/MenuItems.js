@@ -54,6 +54,12 @@ const Menuitems = [
 
   {
     id: uniqueId(),
+    title: "Teaching Categories",
+    icon: IconTypography,
+    href: "/teaching-categories",
+  },
+  {
+    id: uniqueId(),
     title: "Payments",
     icon: IconTypography,
     href: "/payments",

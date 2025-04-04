@@ -5,7 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
-import { IconCheck, IconCircleCheck, IconX } from "@tabler/icons-react";
+import { IconCircleCheck, IconX } from "@tabler/icons-react";
 import Draggable from "react-draggable";
 
 function PaperComponent(props) {
@@ -25,6 +25,7 @@ export default function CustomModal({
   title,
   onSubmit,
   children,
+  loading,
 }) {
   return (
     <>
@@ -36,11 +37,6 @@ export default function CustomModal({
           aria-labelledby="draggable-dialog-title"
           maxWidth="md"
           fullWidth
-          //   sx={{
-          //     "& .MuiButton-root": { fontSize: "1.35rem" },
-          //     "& .MuiInputBase-input": { fontSize: "1.5rem!important" },
-          //     "& .MuiFormLabel-root": { fontSize: "1.5rem!important" },
-          //   }}
         >
           <DialogTitle
             sx={{
@@ -69,11 +65,12 @@ export default function CustomModal({
                 Close
               </Button>
               <Button
-                type="submit"
+                type={"submit"}
                 variant="contained"
                 startIcon={<IconCircleCheck />}
+                disabled={loading}
               >
-                Save
+                {loading ? "Loading..." : "Save"}
               </Button>
             </DialogActions>
           </form>

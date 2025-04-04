@@ -3,14 +3,13 @@
 // import viteLogo from '/vite.svg'
 // import './App.css'
 
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { useRoutes } from 'react-router-dom';
-import Router from './routes/Router';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { useRoutes } from "react-router-dom";
+import Router from "./routes/Router";
 
 import { baselightTheme } from "./theme/DefaultColors";
 
 function App() {
-  
   const routing = useRoutes(Router);
   const theme = baselightTheme;
 
@@ -22,4 +21,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

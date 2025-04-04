@@ -80,7 +80,7 @@ const Header = (props) => {
         </Stack>
 
         <Box flexGrow={1} />
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           color="inherit"
@@ -95,7 +95,7 @@ const Header = (props) => {
           <Badge variant="dot" color="primary">
             <IconBellRinging size="21" stroke="1.5" />
           </Badge>
-        </IconButton>
+        </IconButton> */}
         <Stack spacing={1} direction="row" alignItems="center">
           <Profile />
         </Stack>

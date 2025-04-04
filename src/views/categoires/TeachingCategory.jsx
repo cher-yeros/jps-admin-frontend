@@ -5,13 +5,14 @@ import { useState } from "react";
 // import PageContainer from "src/components/container/PageContainer";
 import PageContainer from "../../components/container/PageContainer";
 import CustomTable from "../../components/widgets/CustomTable";
-import { GET_ALL_PARTNERS } from "../../graphql/partner";
-import NewPackage from "./NewPackage";
+import NewTeachingCategory from "./NewTeachingCategory";
+import { GET_ALL_TEACHING_CATEOGORYS } from "../../graphql/teaching";
 
-const Packages = () => {
-  const [openCreatePackage, setOpenCreatePackage] = useState(false);
+const TeachingCategorys = () => {
+  const [openCreateTeachingCategory, setOpenCreateTeachingCategory] =
+    useState(false);
 
-  const { data, loading, refetch } = useQuery(GET_ALL_PARTNERS);
+  const { data, loading, refetch } = useQuery(GET_ALL_TEACHING_CATEOGORYS);
 
   const columns = [
     {
@@ -28,30 +29,14 @@ const Packages = () => {
       ),
     },
     {
-      field: "name",
+      field: "title",
       headerName: "Name",
     },
     {
       field: "description",
       headerName: "Description",
     },
-    {
-      field: "features",
-      headerName: "Features",
-      renderCell: (value) =>
-        value
-          ?.split('"')
-          ?.filter((item) => item !== "")
-          ?.map((item) => <Chip size="small" key={item} label={item} />),
-    },
-    {
-      field: "price_etb",
-      headerName: "Price (ETB)",
-    },
-    {
-      field: "price_usd",
-      headerName: "Price (USD)",
-    },
+
     {
       field: "actions",
       headerName: "Actions",
@@ -61,14 +46,14 @@ const Packages = () => {
             {/* <IconButton
               size="small"
               color="primary"
-              onClick={() => setOpenCreatePackage(true)}
+              onClick={() => setOpenCreateTeachingCategory(true)}
             >
               <IconView360 />
             </IconButton> */}
             <IconButton
               size="small"
               color="primary"
-              onClick={() => setOpenCreatePackage(true)}
+              onClick={() => setOpenCreateTeachingCategory(true)}
             >
               <Typography variant="subtitle2">Edit</Typography>
             </IconButton>
@@ -82,23 +67,24 @@ const Packages = () => {
   ];
 
   return (
-    <PageContainer title="Packages" description="this is Packages">
-      <>
-        <CustomTable
-          columns={columns}
-          rows={data?.getPackages}
-          onAddNew={() => setOpenCreatePackage(true)}
-          loading={loading}
-        />
-      </>
+    <PageContainer
+      title="Teaching Category"
+      decription="this is Teaching Category"
+    >
+      <CustomTable
+        columns={columns}
+        rows={data?.getTeachingCategories}
+        onAddNew={() => setOpenCreateTeachingCategory(true)}
+        loading={loading}
+      />
 
-      <NewPackage
-        open={openCreatePackage}
-        onClose={() => setOpenCreatePackage(false)}
+      <NewTeachingCategory
+        open={openCreateTeachingCategory}
+        onClose={() => setOpenCreateTeachingCategory(false)}
         refetch={refetch}
       />
     </PageContainer>
   );
 };
 
-export default Packages;
+export default TeachingCategorys;

@@ -6,52 +6,54 @@ import { useState } from "react";
 import PageContainer from "../../components/container/PageContainer";
 import CustomTable from "../../components/widgets/CustomTable";
 import { GET_ALL_PARTNERS } from "../../graphql/partner";
-import NewPackage from "./NewPackage";
+import NewPartner from "./NewPartner";
 
-const Packages = () => {
-  const [openCreatePackage, setOpenCreatePackage] = useState(false);
+const Partners = () => {
+  const [openCreatePartner, setOpenCreatePartner] = useState(false);
 
   const { data, loading, refetch } = useQuery(GET_ALL_PARTNERS);
 
   const columns = [
-    {
-      field: "picture",
-      headerName: "Picture",
-      renderCell: (value, row) => (
-        <Box
-          component="img"
-          src={value}
-          alt={row.name}
-          width={"auto"}
-          height={80}
-        />
-      ),
-    },
+    // {
+    //   field: "picture",
+    //   headerName: "Name",
+    //   renderCell: (value, row) => (
+    //     <Box
+    //       component="img"
+    //       src={value}
+    //       alt={row.name}
+    //       width={"auto"}
+    //       height={80}
+    //     />
+    //   ),
+    // },
     {
       field: "name",
       headerName: "Name",
+      renderCell: (value, row) => `${row.first_name} ${row.last_name}`,
     },
     {
-      field: "description",
-      headerName: "Description",
+      field: "phone",
+      headerName: "Phone",
     },
     {
-      field: "features",
-      headerName: "Features",
-      renderCell: (value) =>
-        value
-          ?.split('"')
-          ?.filter((item) => item !== "")
-          ?.map((item) => <Chip size="small" key={item} label={item} />),
+      field: "email",
+      headerName: "Email",
+      // renderCell: (value) =>
+      //   value
+      //     ?.split('"')
+      //     ?.filter((item) => item !== "")
+      //     ?.map((item) => <Chip size="small" key={item} label={item} />),
     },
     {
-      field: "price_etb",
-      headerName: "Price (ETB)",
+      field: "createdAt",
+      headerName: "Registered On",
+      renderCell: (value) => new Date(value).toLocaleDateString(),
     },
-    {
-      field: "price_usd",
-      headerName: "Price (USD)",
-    },
+    // {
+    //   field: "package",
+    //   headerName: "Package",
+    // },
     {
       field: "actions",
       headerName: "Actions",
@@ -61,14 +63,14 @@ const Packages = () => {
             {/* <IconButton
               size="small"
               color="primary"
-              onClick={() => setOpenCreatePackage(true)}
+              onClick={() => setOpenCreatePartner(true)}
             >
               <IconView360 />
             </IconButton> */}
             <IconButton
               size="small"
               color="primary"
-              onClick={() => setOpenCreatePackage(true)}
+              onClick={() => setOpenCreatePartner(true)}
             >
               <Typography variant="subtitle2">Edit</Typography>
             </IconButton>
@@ -82,23 +84,23 @@ const Packages = () => {
   ];
 
   return (
-    <PageContainer title="Packages" description="this is Packages">
+    <PageContainer title="Partners" description="this is Partners">
       <>
         <CustomTable
           columns={columns}
-          rows={data?.getPackages}
-          onAddNew={() => setOpenCreatePackage(true)}
+          rows={data?.getPartners}
+          onAddNew={() => setOpenCreatePartner(true)}
           loading={loading}
         />
       </>
 
-      <NewPackage
-        open={openCreatePackage}
-        onClose={() => setOpenCreatePackage(false)}
+      <NewPartner
+        open={openCreatePartner}
+        onClose={() => setOpenCreatePartner(false)}
         refetch={refetch}
       />
     </PageContainer>
   );
 };
 
-export default Packages;
+export default Partners;

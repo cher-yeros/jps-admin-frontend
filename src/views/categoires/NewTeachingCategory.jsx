@@ -11,14 +11,27 @@ import {
   MyDropzone,
 } from "../../components/forms/theme-elements/CustomTextField";
 import CustomModal from "../../components/widgets/CustomModal";
-import { CREATE_PACKAGE, UPDATE_PACKAGE } from "../../graphql/package";
+import {
+  CREATE_TEACHING_CATEOGORY,
+  UPDATE_TEACHING_CATEOGORY,
+} from "../../graphql/teaching";
+import { attachmentSchema } from "../utilities/constants";
 import { uploadToServer } from "../utilities/helpers";
 
-export default function NewPackage({ refetch, record, isEdit, ...props }) {
+export default function NewTeachingCategoryCategory({
+  refetch,
+  record,
+  isEdit,
+  ...props
+}) {
   const [uploading, setUploading] = useState(false);
 
-  const [createPackage, { loading: creating }] = useMutation(CREATE_PACKAGE);
-  const [updatePackage, { loading: updating }] = useMutation(UPDATE_PACKAGE);
+  const [createTeachingCategory, { loading: creating }] = useMutation(
+    CREATE_TEACHING_CATEOGORY
+  );
+  const [updateTeachingCategory, { loading: updating }] = useMutation(
+    UPDATE_TEACHING_CATEOGORY
+  );
 
   const {
     control,
@@ -35,17 +48,17 @@ export default function NewPackage({ refetch, record, isEdit, ...props }) {
   const onSubmit = async (values) => {
     try {
       setUploading(true);
-      const picture = await uploadToServer("package", values.picture);
+      const picture = await uploadToServer("category", values.picture);
       setUploading(false);
 
       // return;
 
       if (!isEdit) {
-        const { data } = await createPackage({
+        await createTeachingCategory({
           variables: { input: { ...values, picture } },
         });
       } else {
-        const { data } = await updatePackage({
+        await updateTeachingCategory({
           variables: { input: { ...values, picture } },
         });
       }
@@ -55,8 +68,8 @@ export default function NewPackage({ refetch, record, isEdit, ...props }) {
       reset();
       toast.success(
         isEdit
-          ? "Package Successfully Updated!"
-          : "Package Successfully Created!",
+          ? "Teaching Category Successfully Updated!"
+          : "Teaching Category Successfully Created!",
         { autoClose: 500 }
       );
     } catch (error) {
@@ -68,56 +81,31 @@ export default function NewPackage({ refetch, record, isEdit, ...props }) {
     }
   };
 
+  console.log(errors);
+
   return (
     <CustomModal
       {...props}
-      title={"New Package"}
+      title={"New Teaching Category"}
       onSubmit={handleSubmit(onSubmit)}
       loading={creating || updating || uploading}
     >
       <Grid container columnSpacing={3} rowSpacing={1}>
         <Grid item lg={8}>
           <Grid container columnSpacing={3} rowSpacing={1}>
-            <Grid item lg={6}>
+            <Grid item lg={12}>
               <CustomTextField
                 control={control}
-                name={"name"}
-                label={"Package Name"}
+                name={"title"}
+                label={"Teaching Category Name"}
               />
             </Grid>
 
-            <Grid item lg={3}>
-              <CustomTextField
-                control={control}
-                name={"price_etb"}
-                label={"Price (ETB)"}
-                type={"number"}
-              />
-            </Grid>
-            <Grid item lg={3}>
-              <CustomTextField
-                control={control}
-                name={"price_usd"}
-                label={"Price (USD)"}
-                type={"number"}
-              />
-            </Grid>
-
-            <Grid item lg={6}>
+            <Grid item lg={12}>
               <CustomTextField
                 control={control}
                 name={"description"}
                 label={"Description"}
-                multiline
-                rows={8}
-              />
-            </Grid>
-            <Grid item lg={6}>
-              <CustomTextField
-                control={control}
-                name={"features"}
-                label={"Features"}
-                placeholder={"Write the features separating with comma..."}
                 multiline
                 rows={8}
               />
@@ -131,7 +119,7 @@ export default function NewPackage({ refetch, record, isEdit, ...props }) {
             cg={12}
             lg={12}
             tg={12}
-            label="Driver Photo"
+            label="Category Picture"
             height={"20rem"}
             setValue={setValue}
             isImage
@@ -148,25 +136,16 @@ export default function NewPackage({ refetch, record, isEdit, ...props }) {
 
 const validator = yupResolver(
   Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    description: Yup.string().nullable(),
-    features: Yup.string().nullable(),
-    price_etb: Yup.number()
-      .typeError("Price must be a number")
-      .positive("Price must be greater than zero")
-      .required("Price is required"),
-    price_usd: Yup.number()
-      .typeError("Price must be a number")
-      .positive("Price must be greater than zero")
-      .required("Price is required"),
+    description: Yup.string().required("Description is required"),
+
+    picture: attachmentSchema.required("Photo URL is required"),
+
+    title: Yup.string().required("Title is required"),
   })
 );
 
-NewPackage.propTypes = {
+NewTeachingCategoryCategory.propTypes = {
   refetch: PropTypes.func, // Function to refetch data
   record: PropTypes.object, // Object representing a record
   isEdit: PropTypes.bool, // Boolean flag to indicate edit mode
-
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
 };
