@@ -29,7 +29,7 @@ export default function AuthWrapper() {
   const { token } = useSelector((state) => state.auth);
 
   const httpLink = createHttpLink({
-    uri: local || "https://api2.jpstvethiopia.com/graphql",
+    uri: "https://api2.jpstvethiopia.com/graphql",
     credentials: "include",
     headers: {
       authorization: token ? `Bearer ${token}` : "",

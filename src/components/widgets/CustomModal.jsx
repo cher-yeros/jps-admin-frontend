@@ -83,32 +83,43 @@ export default function CustomModal({
           aria-labelledby="draggable-dialog-title"
           maxWidth="md"
           fullWidth
-          sx={{
-            "& .MuiButton-root": { fontSize: "1.35rem" },
-            "& .MuiInputBase-input": { fontSize: "1.5rem!important" },
-            "& .MuiFormLabel-root": { fontSize: "1.5rem!important" },
-          }}
         >
           <DialogTitle
-            style={{
+            sx={{
               cursor: "move",
-              fontSize: "2.5rem",
+              fontSize: "1.2rem",
               borderBottom: 1,
               borderColor: "divider",
+              background: "primary.main",
             }}
             id="draggable-dialog-title"
           >
             {title}
           </DialogTitle>
-          <DialogContent>
-            <DialogContentText>{children}</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button autoFocus onClick={onClose}>
-              Cancel
-            </Button>
-            <Button type={onSubmit ? "submit" : "button"}>Save</Button>
-          </DialogActions>
+          <form onSubmit={onSubmit}>
+            <DialogContent>
+              <DialogContentText>{children}</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                autoFocus
+                onClick={onClose}
+                variant="contained"
+                color="error"
+                startIcon={<IconX />}
+              >
+                Close
+              </Button>
+              {/* <Button
+                type={"submit"}
+                variant="contained"
+                startIcon={<IconCircleCheck />}
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Save"}
+              </Button> */}
+            </DialogActions>
+          </form>
         </Dialog>
       )}
     </>

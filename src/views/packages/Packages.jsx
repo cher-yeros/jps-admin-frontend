@@ -1,30 +1,46 @@
-import { Box, Chip, IconButton, Stack, Typography } from "@mui/material";
+import { Chip, IconButton, Stack, Typography } from "@mui/material";
 // import { IconBasket } from "@tabler/icons-react";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
 // import PageContainer from "src/components/container/PageContainer";
+import { IconEye } from "@tabler/icons-react";
 import PageContainer from "../../components/container/PageContainer";
 import CustomTable from "../../components/widgets/CustomTable";
-import { GET_ALL_PARTNERS } from "../../graphql/partner";
+import ImageViewer from "../../components/widgets/ImageViewer";
+import { GET_ALL_PACKAGES } from "../../graphql/package";
 import NewPackage from "./NewPackage";
 
 const Packages = () => {
   const [openCreatePackage, setOpenCreatePackage] = useState(false);
 
-  const { data, loading, refetch } = useQuery(GET_ALL_PARTNERS);
+  // const [openVideoPlayer, setOpenVideoPlayer] = useState(false);
+  const [openImageViewer, setOpenImageViewer] = useState(false);
+
+  const [videoPlayerMetaData, setVidePlayerMetaData] = useState({
+    title: "Video Player",
+    address: "",
+  });
+
+  const { data, loading, refetch } = useQuery(GET_ALL_PACKAGES);
 
   const columns = [
     {
       field: "picture",
       headerName: "Picture",
       renderCell: (value, row) => (
-        <Box
-          component="img"
-          src={value}
-          alt={row.name}
-          width={"auto"}
-          height={80}
-        />
+        <IconButton
+          color="primary"
+          onClick={() => {
+            setVidePlayerMetaData({
+              title: row?.name,
+              address: value,
+            });
+
+            setOpenImageViewer(true);
+          }}
+        >
+          <IconEye />
+        </IconButton>
       ),
     },
     {
@@ -95,6 +111,13 @@ const Packages = () => {
       <NewPackage
         open={openCreatePackage}
         onClose={() => setOpenCreatePackage(false)}
+        refetch={refetch}
+      />
+
+      <ImageViewer
+        {...videoPlayerMetaData}
+        open={openImageViewer}
+        onClose={() => setOpenImageViewer(false)}
         refetch={refetch}
       />
     </PageContainer>

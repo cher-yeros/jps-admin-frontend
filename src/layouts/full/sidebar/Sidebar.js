@@ -52,6 +52,10 @@ const MSidebar = ({
           <Box
             sx={{
               height: "100%",
+              "& img": {
+                height: "2rem",
+                width: "auto",
+              },
             }}
           >
             <Sidebar
@@ -66,6 +70,7 @@ const MSidebar = ({
               {/* Logo */}
               {/* ------------------------------------------- */}
               <Logo img={logo} />
+              <Box>{/* <img alt="logo" src={logo} /> */}</Box>
               <Box>
                 {/* ------------------------------------------- */}
                 {/* Sidebar Items */}

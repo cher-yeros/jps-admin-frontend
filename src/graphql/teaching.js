@@ -88,3 +88,37 @@ export const DELETE_TEACHING_CATEOGORY = gql`
     deleteTeachingCategory(id: $id)
   }
 `;
+
+// Subscription
+
+export const GET_ALL_TEACHING_SUBSCRIPTIONS = gql`
+  query GetTeachingSubscriptions {
+    getTeachingSubscriptions {
+      id
+      status
+      start_date
+      end_date
+      payment {
+        amount
+        reason
+        status
+        payment_method
+        tx_ref
+        currency
+      }
+      package {
+        id
+
+        name
+        price_etb
+        price_usd
+      }
+      user {
+        first_name
+        last_name
+        phone
+        email
+      }
+    }
+  }
+`;

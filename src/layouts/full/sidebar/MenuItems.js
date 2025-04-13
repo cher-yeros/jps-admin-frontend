@@ -28,12 +28,7 @@ const Menuitems = [
     icon: IconCopy,
     href: "/packages",
   },
-  {
-    id: uniqueId(),
-    title: "Teachings",
-    icon: IconTypography,
-    href: "/teachings",
-  },
+
   {
     id: uniqueId(),
     title: "Partners",
@@ -46,10 +41,16 @@ const Menuitems = [
     icon: IconTypography,
     href: "/subscriptions",
   },
+  {
+    id: uniqueId(),
+    title: "Payments",
+    icon: IconTypography,
+    href: "/payments",
+  },
 
   {
     navlabel: true,
-    subheader: "Auth",
+    subheader: "Teaching",
   },
 
   {
@@ -60,9 +61,69 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: "Payments",
+    title: "Teachings",
     icon: IconTypography,
-    href: "/payments",
+    href: "/teachings",
+  },
+  {
+    id: uniqueId(),
+    title: "Teaching Sales",
+    icon: IconTypography,
+    href: "/teaching-sales",
+  },
+
+  {
+    navlabel: true,
+    subheader: "Blogs",
+  },
+
+  {
+    id: uniqueId(),
+    title: "Blog Posts",
+    icon: IconTypography,
+    href: "/blog-posts",
+  },
+  {
+    id: uniqueId(),
+    title: "Blog Categories",
+    icon: IconTypography,
+    href: "/blog-categories",
+  },
+
+  {
+    navlabel: true,
+    subheader: "Services",
+  },
+
+  {
+    id: uniqueId(),
+    title: "Services",
+    icon: IconTypography,
+    href: "/services",
+  },
+  {
+    id: uniqueId(),
+    title: "Service Categories",
+    icon: IconTypography,
+    href: "/service-categories",
+  },
+
+  {
+    navlabel: true,
+    subheader: "Gallery",
+  },
+
+  {
+    id: uniqueId(),
+    title: "Gallery Posts",
+    icon: IconTypography,
+    href: "/gallery-posts",
+  },
+  {
+    id: uniqueId(),
+    title: "Gallery Categories",
+    icon: IconTypography,
+    href: "/gallery-categories",
   },
   // {
   //   id: uniqueId(),

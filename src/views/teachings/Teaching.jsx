@@ -1,26 +1,25 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Chip,
-  Fab,
-  Grid,
-  IconButton,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 // import { IconBasket } from "@tabler/icons-react";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
 // import PageContainer from "src/components/container/PageContainer";
+import { IconEye } from "@tabler/icons-react";
 import PageContainer from "../../components/container/PageContainer";
 import CustomTable from "../../components/widgets/CustomTable";
-import NewTeaching from "./NewTeaching";
+import ImageViewer from "../../components/widgets/ImageViewer";
+import VideoPlayer from "../../components/widgets/VideoPlayer";
 import { GET_ALL_TEACHINGS } from "../../graphql/teaching";
+import NewTeaching from "./NewTeaching";
 
 const Teaching = () => {
   const [openCreateTeaching, setOpenCreateTeaching] = useState(false);
+  const [openVideoPlayer, setOpenVideoPlayer] = useState(false);
+  const [openImageViewer, setOpenImageViewer] = useState(false);
+
+  const [videoPlayerMetaData, setVidePlayerMetaData] = useState({
+    title: "Video Player",
+    address: "",
+  });
 
   const { data, loading, refetch } = useQuery(GET_ALL_TEACHINGS);
 
@@ -29,13 +28,19 @@ const Teaching = () => {
       field: "picture",
       headerName: "Thumbnail",
       renderCell: (value, row) => (
-        <Box
-          component="img"
-          src={value}
-          alt={row.name}
-          width={"auto"}
-          height={80}
-        />
+        <IconButton
+          color="primary"
+          onClick={() => {
+            setVidePlayerMetaData({
+              title: row?.name,
+              address: value,
+            });
+
+            setOpenImageViewer(true);
+          }}
+        >
+          <IconEye />
+        </IconButton>
       ),
     },
     {
@@ -46,30 +51,38 @@ const Teaching = () => {
       field: "trailer",
       headerName: "Trailer",
       renderCell: (value) => (
-        <Box
-          component={"video"}
-          width="100%"
-          controls
-          sx={{ boxShadow: "2px 3px 4px solid #ccc" }}
+        <IconButton
+          color="primary"
+          onClick={() => {
+            setVidePlayerMetaData({
+              title: "Trailer",
+              address: value,
+            });
+
+            setOpenVideoPlayer(true);
+          }}
         >
-          <source src={value} type="video/mp4" />
-          Your browser does not support the video tag.
-        </Box>
+          <IconEye />
+        </IconButton>
       ),
     },
     {
       field: "file_url",
       headerName: "Teaching",
       renderCell: (value) => (
-        <Box
-          component={"video"}
-          width="100%"
-          controls
-          sx={{ boxShadow: "2px 3px 4px solid #ccc" }}
+        <IconButton
+          color="primary"
+          onClick={() => {
+            setVidePlayerMetaData({
+              title: "Teaching",
+              address: value,
+            });
+
+            setOpenVideoPlayer(true);
+          }}
         >
-          <source src={value} type="video/mp4" />
-          Your browser does not support the video tag.
-        </Box>
+          <IconEye />
+        </IconButton>
       ),
     },
     // {
@@ -107,8 +120,8 @@ const Teaching = () => {
               <IconView360 />
             </IconButton> */}
             <IconButton
-              size="small"
               color="primary"
+              size="small"
               onClick={() => setOpenCreateTeaching(true)}
             >
               <Typography variant="subtitle2">Edit</Typography>
@@ -134,6 +147,18 @@ const Teaching = () => {
       <NewTeaching
         open={openCreateTeaching}
         onClose={() => setOpenCreateTeaching(false)}
+        refetch={refetch}
+      />
+      <VideoPlayer
+        {...videoPlayerMetaData}
+        open={openVideoPlayer}
+        onClose={() => setOpenVideoPlayer(false)}
+        refetch={refetch}
+      />
+      <ImageViewer
+        {...videoPlayerMetaData}
+        open={openImageViewer}
+        onClose={() => setOpenImageViewer(false)}
         refetch={refetch}
       />
     </PageContainer>

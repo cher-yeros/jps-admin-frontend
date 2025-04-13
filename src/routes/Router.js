@@ -2,9 +2,6 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import AuthWrapper from "../components/container/AuthWrapper";
 import Loadable from "../layouts/full/shared/loadable/Loadable";
-import TeachingCategory from "../views/categoires/TeachingCategory";
-import Partners from "../views/partners/Partners";
-import Teaching from "../views/teachings/Teaching";
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import("../layouts/full/FullLayout")));
@@ -18,6 +15,15 @@ const SamplePage = Loadable(
   lazy(() => import("../views/sample-page/SamplePage"))
 );
 const Packages = Loadable(lazy(() => import("../views/packages/Packages")));
+const Teaching = Loadable(lazy(() => import("../views/teachings/Teaching")));
+const Partners = Loadable(lazy(() => import("../views/partners/Partners")));
+const TeachingCategory = Loadable(
+  lazy(() => import("../views/categoires/TeachingCategory"))
+);
+const Payments = Loadable(lazy(() => import("../views/payment/Payments")));
+const Subscription = Loadable(
+  lazy(() => import("../views/subscription/Subscription"))
+);
 
 const Error = Loadable(lazy(() => import("../views/authentication/Error")));
 
@@ -37,13 +43,13 @@ const Router = [
           { path: "/packages", exact: true, element: <Packages /> },
           { path: "/teachings", exact: true, element: <Teaching /> },
           { path: "/partners", exact: true, element: <Partners /> },
-          { path: "/subscriptions", exact: true, element: <SamplePage /> },
+          { path: "/subscriptions", exact: true, element: <Subscription /> },
           {
             path: "/teaching-categories",
             exact: true,
             element: <TeachingCategory />,
           },
-          { path: "/payments", exact: true, element: <SamplePage /> },
+          { path: "/payments", exact: true, element: <Payments /> },
           // { path: "/icons", exact: true, element: <Icons /> },
           // { path: "/ui/typography", exact: true, element: <TypographyPage /> },
           // { path: "/ui/shadow", exact: true, element: <Shadow /> },
