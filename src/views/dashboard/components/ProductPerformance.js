@@ -50,7 +50,114 @@ const products = [
   },
 ];
 
-const ProductPerformance = () => {
+// const ProductPerformance = ({loading, subscriptions}) => {
+//   return (
+//     <DashboardCard title="Teaching Performance">
+//       <Box sx={{ overflow: "auto", width: { xs: "280px", sm: "auto" } }}>
+//         <Table
+//           aria-label="simple table"
+//           sx={{
+//             whiteSpace: "nowrap",
+//             mt: 2,
+//           }}
+//         >
+//           <TableHead>
+//             <TableRow>
+//               <TableCell>
+//                 <Typography variant="subtitle2" fontWeight={600}>
+//                   Id
+//                 </Typography>
+//               </TableCell>
+//               <TableCell>
+//                 <Typography variant="subtitle2" fontWeight={600}>
+//                   Assigned
+//                 </Typography>
+//               </TableCell>
+//               <TableCell>
+//                 <Typography variant="subtitle2" fontWeight={600}>
+//                   Name
+//                 </Typography>
+//               </TableCell>
+//               <TableCell>
+//                 <Typography variant="subtitle2" fontWeight={600}>
+//                   Priority
+//                 </Typography>
+//               </TableCell>
+//               <TableCell align="right">
+//                 <Typography variant="subtitle2" fontWeight={600}>
+//                   Budget
+//                 </Typography>
+//               </TableCell>
+//             </TableRow>
+//           </TableHead>
+//           <TableBody>
+//             {products.map((product) => (
+//               <TableRow key={product.name}>
+//                 <TableCell>
+//                   <Typography
+//                     sx={{
+//                       fontSize: "15px",
+//                       fontWeight: "500",
+//                     }}
+//                   >
+//                     {product.id}
+//                   </Typography>
+//                 </TableCell>
+//                 <TableCell>
+//                   <Box
+//                     sx={{
+//                       display: "flex",
+//                       alignItems: "center",
+//                     }}
+//                   >
+//                     <Box>
+//                       <Typography variant="subtitle2" fontWeight={600}>
+//                         {product.name}
+//                       </Typography>
+//                       <Typography
+//                         color="textSecondary"
+//                         sx={{
+//                           fontSize: "13px",
+//                         }}
+//                       >
+//                         {product.post}
+//                       </Typography>
+//                     </Box>
+//                   </Box>
+//                 </TableCell>
+//                 <TableCell>
+//                   <Typography
+//                     color="textSecondary"
+//                     variant="subtitle2"
+//                     fontWeight={400}
+//                   >
+//                     {product.pname}
+//                   </Typography>
+//                 </TableCell>
+//                 <TableCell>
+//                   <Chip
+//                     sx={{
+//                       px: "4px",
+//                       backgroundColor: product.pbg,
+//                       color: "#fff",
+//                     }}
+//                     size="small"
+//                     label={product.priority}
+//                   ></Chip>
+//                 </TableCell>
+//                 <TableCell align="right">
+//                   <Typography variant="h6">${product.budget}k</Typography>
+//                 </TableCell>
+//               </TableRow>
+//             ))}
+//           </TableBody>
+//         </Table>
+//       </Box>
+//     </DashboardCard>
+//   );
+// };
+
+const ProductPerformance = ({ loading, subscriptions }) => {
   return (
     <DashboardCard title="Teaching Performance">
       <Box sx={{ overflow: "auto", width: { xs: "280px", sm: "auto" } }}>
@@ -70,29 +177,29 @@ const ProductPerformance = () => {
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Assigned
+                  Name & Package
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Name
+                  Amount
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Priority
+                  Status
                 </Typography>
               </TableCell>
               <TableCell align="right">
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Budget
+                  Amount
                 </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.name}>
+            {subscriptions?.map((sub) => (
+              <TableRow key={sub.id}>
                 <TableCell>
                   <Typography
                     sx={{
@@ -100,7 +207,7 @@ const ProductPerformance = () => {
                       fontWeight: "500",
                     }}
                   >
-                    {product.id}
+                    {sub.id}
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -112,7 +219,7 @@ const ProductPerformance = () => {
                   >
                     <Box>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {product.name}
+                        {sub?.user?.first_name + " " + sub?.user?.last_name}
                       </Typography>
                       <Typography
                         color="textSecondary"
@@ -120,7 +227,7 @@ const ProductPerformance = () => {
                           fontSize: "13px",
                         }}
                       >
-                        {product.post}
+                        {sub.package?.name}
                       </Typography>
                     </Box>
                   </Box>
@@ -131,22 +238,25 @@ const ProductPerformance = () => {
                     variant="subtitle2"
                     fontWeight={400}
                   >
-                    {product.pname}
+                    {sub.payment?.amount + " " + sub?.payment?.currency}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Chip
                     sx={{
                       px: "4px",
-                      backgroundColor: product.pbg,
-                      color: "#fff",
+                      // backgroundColor: sub.pbg,
+                      // color: "#fff",
                     }}
+                    color={sub.status === "ACTIVE" ? "success" : "warning"}
                     size="small"
-                    label={product.priority}
+                    label={sub.status}
                   ></Chip>
                 </TableCell>
                 <TableCell align="right">
-                  <Typography variant="h6">${product.budget}k</Typography>
+                  <Typography variant="h6">
+                    {sub.payment?.amount + " " + sub?.payment?.currency}
+                  </Typography>
                 </TableCell>
               </TableRow>
             ))}

@@ -64,8 +64,8 @@ const Payments = () => {
       renderCell: ({ value, row }) => (
         <Chip
           size="small"
-          color={value === "COMPLETED" ? "success" : "warning"}
-          label={capitalize(row?.paymnet?.status)}
+          color={row?.payment?.status === "COMPLETED" ? "success" : "warning"}
+          label={capitalize(row?.payment?.status)}
         />
       ),
     },
