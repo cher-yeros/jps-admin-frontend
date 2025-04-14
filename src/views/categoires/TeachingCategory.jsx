@@ -18,7 +18,7 @@ const TeachingCategorys = () => {
     {
       field: "picture",
       headerName: "Picture",
-      renderCell: (value, row) => (
+      renderCell: ({ value, row }) => (
         <Box
           component="img"
           src={value}

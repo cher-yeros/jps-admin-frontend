@@ -1,33 +1,47 @@
-import { Chip } from "@mui/material";
-// import { IconBasket } from "@tabler/icons-react";
 import { useQuery } from "@apollo/client";
-import { useState } from "react";
-// import PageContainer from "src/components/container/PageContainer";
-import { capitalize } from "lodash";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Add, Delete, Edit, Launch } from "@mui/icons-material";
+import { Chip } from "@mui/material";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
 import PageContainer from "../../components/container/PageContainer";
 import CustomTable from "../../components/widgets/CustomTable";
-import { GET_PAYMENTS } from "../../graphql/admin";
-import { numberFormat } from "../utilities/helpers";
+import { numberFormat } from "../../utils/misc";
+import { GET_PAYMENTS } from "../graphql/admin";
 
-const Payments = () => {
-  const [openCreateTeaching, setOpenCreateTeaching] = useState(false);
-  const [openVideoPlayer, setOpenVideoPlayer] = useState(false);
-  const [openImageViewer, setOpenImageViewer] = useState(false);
+export default function Payments() {
+  const { t } = useTranslation();
 
-  const [videoPlayerMetaData, setVidePlayerMetaData] = useState({
-    title: "Video Player",
-    address: "",
-  });
+  const [open, setOpen] = useState(false);
 
   const { data, loading, refetch } = useQuery(GET_PAYMENTS);
+
+  const actions = [
+    {
+      icon: <Launch />,
+      onClick: () => {},
+      color: "primary",
+    },
+    {
+      icon: <Edit />,
+      onClick: () => {},
+      color: "success",
+    },
+    {
+      icon: <Delete />,
+      onClick: () => {},
+      color: "error",
+    },
+  ];
 
   const columns = [
     {
       field: "fullname",
       headerName: "Payer Name",
       flex: 1,
-      renderCell: ({ value, row }) => {
-        return row?.first_name + " " + row?.last_name;
+      renderCell: ({ row }) => {
+        return row.first_name + " " + row.last_name;
       },
     },
     {
@@ -54,7 +68,10 @@ const Payments = () => {
       field: "amount",
       headerName: "Amount",
       flex: 1,
-      renderCell: ({ value, row }) => numberFormat(value) + " " + row.currency,
+      renderCell: ({ value, row }) =>
+        numberFormat(value) +
+        " " +
+        (row.payment_method === "Paypal" ? "USD" : "ETB"),
     },
     {
       field: "status",
@@ -64,7 +81,7 @@ const Payments = () => {
         <Chip
           size="small"
           color={value === "COMPLETED" ? "success" : "warning"}
-          label={capitalize(value)}
+          label={value}
         />
       ),
     },
@@ -88,29 +105,30 @@ const Payments = () => {
     // },
   ];
 
+  const toolbars = [
+    {
+      label: "Add New",
+      icon: <Add />,
+      onClick: () => setOpen(true),
+    },
+  ];
+
   return (
-    <PageContainer title="Teachings" description="this is Teachings">
+    <PageContainer title="Blogs" description="this is Blogs">
       <CustomTable
+        onAddNew={() => setOpen(true)}
         columns={columns}
-        rows={data?.payments}
-        // onAddNew={() => setOpenCreateTeaching(true)}
+        rows={data?.payments || []}
         loading={loading}
       />
-
-      {/* <VideoPlayer
-        {...videoPlayerMetaData}
-        open={openVideoPlayer}
-        onClose={() => setOpenVideoPlayer(false)}
-        refetch={refetch}
-      />
-      <ImageViewer
-        {...videoPlayerMetaData}
-        open={openImageViewer}
-        onClose={() => setOpenImageViewer(false)}
-        refetch={refetch}
-      /> */}
     </PageContainer>
   );
-};
+}
 
-export default Payments;
+const validator = yupResolver(
+  Yup.object().shape({
+    title: Yup.string().required("Title is required!"),
+    excerpt: Yup.string().required("excerpt is required!"),
+    body: Yup.string().required("Body is required!"),
+  })
+);

@@ -17,7 +17,7 @@ const Partners = () => {
     // {
     //   field: "picture",
     //   headerName: "Name",
-    //   renderCell: (value, row) => (
+    //   renderCell: ({value, row}) => (
     //     <Box
     //       component="img"
     //       src={value}
@@ -30,7 +30,7 @@ const Partners = () => {
     {
       field: "name",
       headerName: "Name",
-      renderCell: (value, row) => `${row.first_name} ${row.last_name}`,
+      renderCell: ({ value, row }) => `${row.first_name} ${row.last_name}`,
     },
     {
       field: "phone",
@@ -39,7 +39,7 @@ const Partners = () => {
     {
       field: "email",
       headerName: "Email",
-      // renderCell: (value) =>
+      // renderCell: ({value}) =>
       //   value
       //     ?.split('"')
       //     ?.filter((item) => item !== "")
@@ -48,7 +48,7 @@ const Partners = () => {
     {
       field: "createdAt",
       headerName: "Registered On",
-      renderCell: (value) => new Date(value).toLocaleDateString(),
+      renderCell: ({ value }) => new Date(value).toLocaleDateString(),
     },
     // {
     //   field: "package",

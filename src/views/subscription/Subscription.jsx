@@ -26,7 +26,7 @@ const Subscription = () => {
     // {
     //   field: "picture",
     //   headerName: "Thumbnail",
-    //   renderCell: (value, row) => (
+    //   renderCell: ({value, row}) => (
     //     <IconButton
     //       color="primary"
     //       onClick={() => {
@@ -46,19 +46,19 @@ const Subscription = () => {
     {
       field: "name",
       headerName: "Name",
-      renderCell: (value, row) =>
+      renderCell: ({ value, row }) =>
         `${row.user?.first_name} ${row.user?.last_name}`,
     },
     {
       field: "phone",
       headerName: "Phone",
-      renderCell: (value, row) => row?.user?.phone,
+      renderCell: ({ value, row }) => row?.user?.phone,
     },
     {
       field: "email",
       headerName: "Email",
-      renderCell: (value, row) => row?.user?.email,
-      // renderCell: (value) =>
+      renderCell: ({ value, row }) => row?.user?.email,
+      // renderCell: ({value}) =>
       //   value
       //     ?.split('"')
       //     ?.filter((item) => item !== "")
@@ -67,18 +67,18 @@ const Subscription = () => {
     {
       field: "package_name",
       headerName: "Package",
-      renderCell: (value, row) => row?.package?.name,
+      renderCell: ({ value, row }) => row?.package?.name,
     },
     {
       field: "paid_amoung",
       headerName: "Amount",
-      renderCell: (value, row) =>
+      renderCell: ({ value, row }) =>
         row?.payment?.amount + " " + row?.payment?.currency,
     },
     {
       field: "status",
       headerName: "Status",
-      renderCell: (value) => (
+      renderCell: ({ value }) => (
         <Chip size="small" label={value} color="warning" />
       ),
     },

@@ -27,7 +27,7 @@ const Teaching = () => {
     {
       field: "picture",
       headerName: "Thumbnail",
-      renderCell: (value, row) => (
+      renderCell: ({ value, row }) => (
         <IconButton
           color="primary"
           onClick={() => {
@@ -50,7 +50,7 @@ const Teaching = () => {
     {
       field: "trailer",
       headerName: "Trailer",
-      renderCell: (value) => (
+      renderCell: ({ value }) => (
         <IconButton
           color="primary"
           onClick={() => {
@@ -69,7 +69,7 @@ const Teaching = () => {
     {
       field: "file_url",
       headerName: "Teaching",
-      renderCell: (value) => (
+      renderCell: ({ value }) => (
         <IconButton
           color="primary"
           onClick={() => {
@@ -92,7 +92,7 @@ const Teaching = () => {
     // {
     //   field: "features",
     //   headerName: "Features",
-    //   renderCell: (value) =>
+    //   renderCell: ({value}) =>
     //     value
     //       ?.split('"')
     //       ?.filter((item) => item !== "")

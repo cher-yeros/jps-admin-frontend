@@ -61,3 +61,8 @@ export const uploadToServer = async (folder, image, onProgress) => {
     xhr.send(formData);
   });
 };
+
+export function numberFormat(num) {
+  const format = new Intl.NumberFormat({ style: "currency" });
+  return format.format(num);
+}

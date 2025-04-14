@@ -27,7 +27,7 @@ const Packages = () => {
     {
       field: "picture",
       headerName: "Picture",
-      renderCell: (value, row) => (
+      renderCell: ({ value, row }) => (
         <IconButton
           color="primary"
           onClick={() => {
@@ -54,7 +54,7 @@ const Packages = () => {
     {
       field: "features",
       headerName: "Features",
-      renderCell: (value) =>
+      renderCell: ({ value }) =>
         value
           ?.split('"')
           ?.filter((item) => item !== "")
