@@ -2,6 +2,8 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import AuthWrapper from "../components/container/AuthWrapper";
 import Loadable from "../layouts/full/shared/loadable/Loadable";
+import Donation from "../views/donation/Donation";
+import TeachingSales from "../views/sales/TeachingSales";
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import("../layouts/full/FullLayout")));
@@ -69,7 +71,7 @@ const Router = [
             element: <TeachingCategory />,
           },
           { path: "/payments", exact: true, element: <Payments /> },
-          { path: "/teaching-sales", exact: true, element: <SamplePage /> },
+          { path: "/teaching-sales", exact: true, element: <TeachingSales /> },
           { path: "/blog-posts", exact: true, element: <Blogs /> },
           { path: "/blog-categories", exact: true, element: <BlogCategorys /> },
           { path: "/services", exact: true, element: <Services /> },
@@ -108,7 +110,7 @@ const Router = [
             exact: true,
             element: <FAQs />,
           },
-          { path: "/gifts", exact: true, element: <SamplePage /> },
+          { path: "/gifts", exact: true, element: <Donation /> },
           // { path: "/payments", exact: true, element: <Payments /> },
           // { path: "/payments", exact: true, element: <Payments /> },
           // { path: "/icons", exact: true, element: <Icons /> },

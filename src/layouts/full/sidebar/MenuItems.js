@@ -77,12 +77,12 @@ const Menuitems = [
     icon: IconCategory,
     href: "/teaching-categories",
   },
-  // {
-  //   id: uniqueId(),
-  //   title: "Teaching Sales",
-  //   icon: IconShoppingCart,
-  //   href: "/teaching-sales",
-  // },
+  {
+    id: uniqueId(),
+    title: "Teaching Sales",
+    icon: IconShoppingCart,
+    href: "/teaching-sales",
+  },
 
   {
     navlabel: true,
@@ -140,12 +140,12 @@ const Menuitems = [
     icon: IconUserHeart,
     href: "/partners",
   },
-  // {
-  //   id: uniqueId(),
-  //   title: "Gifts",
-  //   icon: IconGift,
-  //   href: "/gifts",
-  // },
+  {
+    id: uniqueId(),
+    title: "Gifts",
+    icon: IconGift,
+    href: "/gifts",
+  },
   {
     id: uniqueId(),
     title: "Subscriptions",
