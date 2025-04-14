@@ -25,26 +25,25 @@ const Subscription = Loadable(
   lazy(() => import("../views/subscription/Subscription"))
 );
 
-const Blogs = lazy(() => import("../views/blog/Blogs"));
-const BlogCategorys = lazy(() => import("../views/blog/Category"));
-const Dashboard1 = lazy(() => import("../views/dashboard/Dashboard"));
-const FAQs = lazy(() => import("../views/FAQ/FAQs"));
-const Feedbacks = lazy(() => import("../views/feedbacks/Feedbacks"));
-const GalleryCategory = lazy(() =>
-  import("../views/gallery-category/GalleryCategory")
+const Blogs = Loadable(lazy(() => import("../views/blog/Blogs")));
+const BlogCategorys = Loadable(lazy(() => import("../views/blog/Category")));
+const Dashboard1 = Loadable(lazy(() => import("../views/dashboard/Dashboard")));
+const FAQs = Loadable(lazy(() => import("../views/FAQ/FAQs")));
+const Feedbacks = Loadable(lazy(() => import("../views/feedbacks/Feedbacks")));
+const GalleryCategory = Loadable(
+  lazy(() => import("../views/gallery-category/GalleryCategory"))
 );
-const Gallery = lazy(() => import("../views/gallery/Gallery"));
-const VisitorPrayerApplications = lazy(() =>
-  import("../views/gust-house/GuestHousePrayerApplications")
+const Gallery = Loadable(lazy(() => import("../views/gallery/Gallery")));
+const VisitorPrayerApplications = Loadable(
+  lazy(() => import("../views/gust-house/GuestHousePrayerApplications"))
 );
-const PrayerRequests = lazy(() =>
-  import("../views/prayer-requests/PrayerRequests")
+const PrayerRequests = Loadable(
+  lazy(() => import("../views/prayer-requests/PrayerRequests"))
 );
-const ServiceCategory = lazy(() =>
-  import("../views/service-category/ServiceCategory")
+const ServiceCategory = Loadable(
+  lazy(() => import("../views/service-category/ServiceCategory"))
 );
-const Services = lazy(() => import("../views/services/Services"));
-
+const Services = Loadable(lazy(() => import("../views/services/Services")));
 const Error = Loadable(lazy(() => import("../views/authentication/Error")));
 
 const Login = Loadable(lazy(() => import("../views/authentication/Login")));

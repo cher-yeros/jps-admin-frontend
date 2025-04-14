@@ -18,6 +18,7 @@ export const GET_PAYMENTS = gql`
       reason
       amount
       tx_ref
+      currency
       status
       payment_method
       createdAt
